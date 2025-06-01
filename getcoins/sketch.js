@@ -15,11 +15,25 @@
 
 
 /// MAGIC NUMBERS ///
+// Control Keys Reference
+const KEY_LEFT = 37;			// Left arrow key
+const KEY_RIGHT = 39;			// Right arrow key
+const KEY_UP = 38;				// Up arrow key
+const KEY_SPACE = 32;			// Space key
+const KEY_ENTER = 13;			// Enter key
+const KEY_ESCAPE = 27;			// Escape key
+
 // Control difficulty
 const MAX_COLLECTABLES = 10;	// Number of collectables
-const MAX_CANYONS = 5; 			// Number of canyons
-const MAX_LIVES = 3;			// Number of lives
-const MAX_SECONDS = 30;			// Number of seconds for countdown
+const MAX_CANYONS = 1; 	        // Number of canyons
+const MAX_LIVES = 300;			// Number of lives
+const MAX_SECONDS = 300;	    // Number of seconds for countdown
+
+// Control background elements
+const MAX_TREES =5		        // Number of trees
+//const MAX_MOUNTAINS = 2;		// Number of mountains
+//const MAX_CLOUDS = 4;			// Number of clouds
+
 // Control fire animation
 const MAX_PARTICLES = 100;      // Number of fire particles
 const MAX_LIFESPAN = 100;		// Lifespan of fire particles
@@ -28,6 +42,7 @@ const MAX_SIZE = 15;			// Size of fire particles
 
 
 let character;
+let backgroundColor;
 var canyons;
 var collectables;
 var tree;
@@ -40,7 +55,6 @@ var move_legs;
 var trees_x; 
 var cameraPosX;
 var floorPos_y;
-let backgroundColor;
 var game_score;
 var keepGoing = true;
 var emitters = [];
@@ -148,35 +162,21 @@ function draw()
 // Control the position of the character when keys are pressed.
 function keyPressed()
 {
-	// If the character is plummeting down the canyon then we can't move
-	if (!isPlummeting) {
-		if (keyCode == 37){
-			isLeft = true;	
-		}else if (keyCode == 39){
-			isRight = true;
-		}else if (keyCode == 38 && isFalling == false){	// Up arrow for jumping
+
+	if (keyCode === KEY_UP && !isFalling){	// Up arrow for jumping
+			
 			character.position.y -= 100;
 			jump_sound.play();
-		}	
 	}
-
+		
 	// Restart the game!!!
-	if (keyCode == 32 && keepGoing == false)
+	if (keyCode == KEY_SPACE && keepGoing == false)
 	{
 		win_sound.stop();
 		startGame();
 	}
-}
 
-
-// Control the animation of the character when keys are released.
-function keyReleased()
-{
-	if (keyCode == 37){
-		isLeft = false;	
-	}else if (keyCode == 39){
-		isRight = false;
-	}
+	return false; // Prevent default behavior of the key
 }
 
 
@@ -254,20 +254,31 @@ function gameOver()
 function checkMovement()
 {
 	// Walking left and right
-	if (isLeft && !isPlummeting) {
-		character.position.x -= 5;
-	}else if (isRight && !isPlummeting){
-		character.position.x += 5;
+	if (!isPlummeting) {
+		// If the left arrow key is pressed, we move the character left
+		if (keyIsDown(KEY_LEFT) && !keyIsDown(KEY_RIGHT)){ 
+			isLeft = true;
+			isRight = false; // Prevents character from moving left and right at the same time
+			character.position.x -= 5;
+		// If the right arrow key is pressed, we move the character right
+		}else if (keyIsDown(KEY_RIGHT) && !keyIsDown(KEY_LEFT)){	
+			isRight = true;
+			isLeft = false; // Prevents character from moving left and right at the same time
+			character.position.x += 5;
+		}else{
+			// If no key is pressed, we stop the character
+			isLeft = false;
+			isRight = false;
+		}
+
+		// Falling after jump
+		if (character.position.y < floorPos_y + 15) {
+			character.position.y += 5;
+			isFalling = true;
+		}else if (character.position.y >= floorPos_y) 
+			isFalling = false;
 	}
 
-	// Jumping plus gravity
-	if (character.position.y < floorPos_y + 15) {
-		character.position.y += 5;
-		isFalling = true;
-	}
-	if (character.position.y >= floorPos_y) {
-		isFalling = false;
-	}
 
 	// Check if flagpole has been reached
 	if (!flagpole.isReached) {
@@ -531,6 +542,8 @@ function checkPlayerDie() {
 		// if there are still lives remaining we start again
 		if (lives >= 1) {
 			isPlummeting = false;
+			// REVIEW:
+			// Reset character position SHOULD NOT BE ON A CANYON
 			character.position.x = width/2;
 			character.position.y = floorPos_y + 15;
 		}
@@ -759,7 +772,7 @@ function startGame() {
 	floorPos_y = height * 3/4;
 
 	// Initialize LIVES counter
-	lives = 3;
+	lives = MAX_LIVES;
 
 	// Set background color so we can use it for the canyons
 	backgroundColor = [100,155,255]; 
@@ -797,7 +810,7 @@ function startGame() {
 
 	// TREES
 	trees = [];
-	for (let i = 0; i < 5; i++) 
+	for (let i = 0; i < MAX_TREES; i++) 
 	{	
 		trees[i] = {
 			position: createVector(
@@ -908,7 +921,7 @@ function startGame() {
 			MAX_PARTICLES
 		));
 		
-		emitters[i].startEmitter(canyons[i].width);
+		emitters[i].start_emitter(canyons[i].width);
 	}
 
 
@@ -930,7 +943,7 @@ class Emitter
     }
 
    
-    startEmitter(canyon_width)
+    start_emitter(canyon_width)
     {
         for (let i = 0; i < this.num_particles; i++) 
         {
@@ -943,9 +956,11 @@ class Emitter
     create_particle(canyon_width)
     {
         return new Particle(
+			// Position
             createVector(
 				Math.floor(random(this.position.x + 3, this.position.x + canyon_width - 3)), 
 				height),
+			// Velocity
             createVector(0, -random(0.5, 2)),
             Math.floor(random(3, MAX_SIZE)),
             Math.floor(random(0, MAX_LIFESPAN)),
@@ -985,11 +1000,15 @@ class Emitter
 class Particle
 {
     constructor(position, velocity, size, lifespan) {
-        this.position = position,
-        this.velocity = velocity,
-        this.size = size,
-        this.lifespan = lifespan
+        this.position = position;
+		// Velocity is a vector that determines the speed and direction of the particle
+        this.velocity = velocity;
+        this.size = size;
+		// Lifespan is the maximum age of the particle before it disappears
+        this.lifespan = lifespan;
+		// Age is the current age of the particle
         this.age = 0;
+		// Alpha is the transparency of the particle, starting at 180
         this.alpha = 180;
     }
 
