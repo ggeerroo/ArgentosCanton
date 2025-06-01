@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viaje Argentino a la Feria de Cantón 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos Generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        /* Sección de Invitación */
+        .invitation {
+            background: linear-gradient(135deg, #005bac, #003a6d);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .invitation h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .destination-flag {
+            font-size: 2.8rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .main-title {
+            text-align: center;
+        }
+
+        .highlight {
+            font-size: 2.3rem;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.2;
+            position: relative;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            letter-spacing: 1.5px;
+            display: block;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Secciones Generales */
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #005bac;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #cc0000;
+        }
+
+        /* Tabla de Detalles */
+        .trip-details {
+            background: #e3f2fd;
+            border-left: 5px solid #005bac;
+        }
+
+        .trip-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .trip-details td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        /* Beneficios */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .benefit-icon {
+            width: 40px;
+            margin-right: 15px;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            background: #fff9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+
+        .testimonial-img {
+            width: 100px;
+            border-radius: 50%;
+            border: 3px solid #cc0000;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: #cc0000;
+            color: white;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        .contact-info {
+            margin: 25px 0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .invitation h1 {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .highlight {
+                font-size: 1.8rem;
+            }
+            
+            .destination-flag {
+                font-size: 2rem;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Sección Principal -->
+    <section class="invitation">
+        <h1>
+            <span class="destination-flag">🇨🇳</span>
+            <div class="main-title">
+                <span class="highlight">Feria de Cantón 2025</span>
+                <span class="subtitle">Viaje Ejecutivo Argentino</span>
+            </div>
+            <span class="destination-flag">🇦🇷</span>
+        </h1>
+        <p>Únase a empresarios y emprendedores argentinos en una experiencia comercial exclusiva</p>
+    </section>
+
+    <!-- Detalles del Viaje -->
+    <section class="section trip-details">
+        <h2>Detalles del Programa</h2>
+        <table>
+            <tr>
+                <td>Fechas</td>
+                <td>10 al 21 de Octubre 2025 (primera fase)</td>
+            </tr>
+            <tr>
+                <td>Destino</td>
+                <td>Feria de Cantón, Guangzhou, China</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Beneficios -->
+    <section class="section">
+        <h2>¿Qué Incluye?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <img src="plane.png" alt="Vuelos" class="benefit-icon">
+                 Pasajes aéreos ida y vuelta
+            </div>
+            <div class="benefit-item">
+                <img src="hotel.png" alt="Alojamiento" class="benefit-icon">
+                Alojamiento de calidad con desayuno
+            </div>
+            
+            <div class="benefit-item">
+                <img src="translation.png" alt="Alojamiento" class="benefit-icon">
+                Guías y traductores en español
+            </div>
+            <div class="benefit-item">
+                <img src="shopping.png" alt="Alojamiento" class="benefit-icon">
+                Visitas a mercados locales
+            </div>
+             <div class="benefit-item">
+                <img src="culture.png" alt="Alojamiento" class="benefit-icon">
+                Experiencia de immersión cultural
+            </div>
+            <div class="benefit-item">
+                <img src="networking.png" alt="Alojamiento" class="benefit-icon">
+                Networking empresarial
+            </div>
+            <!-- Repetir para otros beneficios -->
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2>¿Por Qué Elegirnos?</h2>
+        <ul style="list-style: none; line-height: 2;">
+            <li>✔️ Valoramos el profesionalismo y la responsabilidad</li>
+            <li>✔️ Tenemos años de experiencia real emprendiendo en China</li>
+            <li>✔️ Queremos ayudarte a dominar tu industria</li>
+            <li>✔️ Brindamos total transparencia, sin sorpresas ni complicaciones</li>
+            <li>✔️ Buscamos generar lazos que impulsen el crecimiento mutuo</li>
+        </ul>
+    </section>
+    
+    <!-- Testimonio -->
+    <section class="section">
+        <h2>Experiencias Comprobadas</h2>
+        <div class="testimonial">
+            <img src="1748246679699.jpg" alt="Cliente satisfecho" class="testimonial-img">
+            <blockquote>
+                "La organización impecable nos permitió enfocarnos 100% en los negocios. ¡Superó todas las expectativas!"
+                <cite>- Juan Pérez, Empresario Textil</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="section cta-section">
+        <h2 style="color: white; border: none;">¡Reserva Ahora!</h2>
+        <p style="margin: 15px 0; font-size: 1.1em;">Cupos limitados - Grupo exclusivo</p>
+        <div class="contact-info">
+            <p>✉️ info@argentoscanton.com</p>
+            <p>📱 +54 9 11 1234-5678</p>
+            <p>🌐 www.argentoscanton.com</p>
+        </div>
+    </section>
+</body>
+</html>
