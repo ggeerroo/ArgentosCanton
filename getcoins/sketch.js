@@ -25,9 +25,9 @@ const KEY_ESCAPE = 27;			// Escape key
 
 // Control difficulty
 const MAX_COLLECTABLES = 10;	// Number of collectables
-const MAX_CANYONS = 1; 	        // Number of canyons
-const MAX_LIVES = 300;			// Number of lives
-const MAX_SECONDS = 300;	    // Number of seconds for countdown
+const MAX_CANYONS = 5; 	        // Number of canyons
+const MAX_LIVES = 3;	        // Number of lives
+const MAX_SECONDS = 30;	        // Number of seconds for countdown
 
 // Control background elements
 const MAX_TREES =5		        // Number of trees
