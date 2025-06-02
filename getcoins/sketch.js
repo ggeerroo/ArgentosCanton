@@ -25,9 +25,9 @@ const KEY_ESCAPE = 27;			// Escape key
 
 // Control difficulty
 const MAX_COLLECTABLES = 10;	// Number of collectables
-const MAX_CANYONS = 5; 	        // Number of canyons
-const MAX_LIVES = 3;	        // Number of lives
-const MAX_SECONDS = 30;	        // Number of seconds for countdown
+const MAX_CANYONS = 1; 	        // Number of canyons
+const MAX_LIVES = 300;			// Number of lives
+const MAX_SECONDS = 300;	    // Number of seconds for countdown
 
 // Control background elements
 const MAX_TREES =5		        // Number of trees
@@ -162,11 +162,12 @@ function draw()
 // Control the position of the character when keys are pressed.
 function keyPressed()
 {
-
-	if (keyCode === KEY_UP && !isFalling){	// Up arrow for jumping
-			
-			character.position.y -= 100;
-			jump_sound.play();
+	if (!isPlummeting && !isFalling) {
+		if (keyCode === KEY_UP){	// Up arrow for jumping
+				
+				character.position.y -= 100;
+				jump_sound.play();
+		}
 	}
 		
 	// Restart the game!!!
